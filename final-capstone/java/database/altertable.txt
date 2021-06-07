@@ -1,0 +1,49 @@
+alter table meal
+add column date date not null;
+
+alter table meal 
+add column typeoffood varchar (15) not null;
+
+alter table meal 
+drop column food;
+
+alter table meal
+drop column servings;
+
+alter table meal 
+rename column calories
+to totalCals;
+
+alter table meal
+rename column protein 
+to totalProtein;
+
+alter table meal 
+rename column carbs
+to totalCarbs;
+
+alter table meal 
+rename column fat
+to totalFats;
+
+Create table food(
+
+food_id serial Primary key,
+meal_id int (4) not null,
+name varchar (64) not null,
+serving int (2) not null, 
+fats int (4) not null, 
+proteins int (4) not null, 
+carbs int (4) not null, 
+cals int (4) not null,
+
+constraint pk_food primary key food_id,
+constraint fk_meal_id foreign key (meal_id) references meal(meal_id)
+
+);
+
+select meal.meal_id , meal.totalcals, meal.totalprotein, meal.totalcarbs, meal.totalfats, food.name, food.serving, food.fats, food.proteins, food.carbs, food.cals
+from meal
+join food on food.meal_id = meal.meal_id
+where meal.meal_id = 3;
+
